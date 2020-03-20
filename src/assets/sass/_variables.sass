@@ -1,29 +1,36 @@
-// Included below are all the defined variables from Bulma
-// Modify as needed, removing the !default attribute.
+// Reminder: Remove !default when changing something.
+// Color scheme loosely based on https://lospec.com/palette-list/ocaso
+
+// Custom colors
+$twitter: #55acee
+$twitter-invert: findColorInvert($twitter)
+$github: #333
+$github-invert: findColorInvert($github)
 
 // Colors
-$black:        hsl(0, 0%, 4%) !default
+$black:        #4b414a
 $black-bis:    hsl(0, 0%, 7%) !default
 $black-ter:    hsl(0, 0%, 14%) !default
 
 $grey-darker:  hsl(0, 0%, 21%) !default
 $grey-dark:    hsl(0, 0%, 29%) !default
 $grey:         hsl(0, 0%, 48%) !default
+$grey:         lighten( $black, 10% )
 $grey-light:   hsl(0, 0%, 71%) !default
 $grey-lighter: hsl(0, 0%, 86%) !default
 
-$white-ter:    hsl(0, 0%, 96%) !default
-$white-bis:    hsl(0, 0%, 98%) !default
-$white:        hsl(0, 0%, 100%) !default
+$white:        #fefed7
+$white-ter:    lighten( $white, 4% )
+$white-bis:    lighten( $white, 2% )
 
-$orange:       hsl(14,  100%, 53%) !default
-$yellow:       hsl(48,  100%, 67%) !default
-$green:        hsl(141, 71%,  48%) !default
-$turquoise:    hsl(171, 100%, 41%) !default
-$cyan:         hsl(204, 86%,  53%) !default
-$blue:         hsl(217, 71%,  53%) !default
-$purple:       hsl(271, 100%, 71%) !default
-$red:          hsl(348, 100%, 61%) !default
+$orange:       #f3936a
+$yellow:       #fada6d
+$green:        #52a67e
+$turquoise:    #bff0f0
+$cyan:         #98b8d1
+$blue:         $cyan
+$purple:       #683d64
+$red:          #cf685a
 
 // Typography
 $family-sans-serif: 'Zilla Slab', 'Georgia', serif !default
@@ -71,74 +78,94 @@ $speed: 86ms !default
 // Flags
 $variable-columns: true !default
 
-
 // The default Bulma derived variables are declared below
-$primary: $turquoise !default
+$primary: $turquoise
 
-$info: $cyan !default
-$success: $green !default
-$warning: $yellow !default
-$danger: $red !default
+$info: $cyan
+$success: $green
+$warning: $yellow
+$danger: $red
 
 $light: $white-ter !default
 $dark: $grey-darker !default
 
 // Invert colors
-$orange-invert: findColorInvert($orange) !default
-$yellow-invert: findColorInvert($yellow) !default
-$green-invert: findColorInvert($green) !default
-$turquoise-invert: findColorInvert($turquoise) !default
-$cyan-invert: findColorInvert($cyan) !default
-$blue-invert: findColorInvert($blue) !default
-$purple-invert: findColorInvert($purple) !default
-$red-invert: findColorInvert($red) !default
+$orange-invert: findColorInvert($orange)
+$yellow-invert: findColorInvert($yellow)
+$green-invert: findColorInvert($green)
+$turquoise-invert: findColorInvert($turquoise)
+$cyan-invert: findColorInvert($cyan)
+$blue-invert: findColorInvert($blue)
+$purple-invert: findColorInvert($purple)
+$red-invert: findColorInvert($red)
 
-$primary-invert: $turquoise-invert !default
-$info-invert: $cyan-invert !default
-$success-invert: $green-invert !default
-$warning-invert: $yellow-invert !default
-$danger-invert: $red-invert !default
+$primary-invert: $turquoise-invert
+$info-invert: $cyan-invert
+$success-invert: $green-invert
+$warning-invert: $yellow-invert
+$danger-invert: $red-invert
 $light-invert: $dark !default
 $dark-invert: $light !default
 
 // General colors
-$background: $white-ter !default
-
+$background: $black
 $border: $grey-lighter !default
 $border-hover: $grey-light !default
 
+$scheme-main: $black
+$scheme-main-bis: $black-bis
+$scheme-main-ter: $black-ter
+$scheme-invert: $white
+$scheme-invert-bis: $white-bis
+$scheme-invert-ter: $white-ter
+
+$body-background-color: $black
+$body-color: $white
+
 // Text colors
-$text: $grey-dark !default
-$text-invert: findColorInvert($text) !default
-$text-light: $grey !default
-$text-strong: $grey-darker !default
+$text: $white-ter
+$text-invert: findColorInvert($text)
+$text-light: $white
+$text-strong: $white-ter
+$strong-color: $white-bis
 
 // Code colors
-$code: $red !default
-$code-background: $background !default
+$code: $red
+$code-background: $background
 
-$pre: $text !default
-$pre-background: $background !default
+$pre: $text
+$pre-background: $background
 
 // Link colors
-$link: $blue !default
-$link-invert: $blue-invert !default
-$link-visited: $purple !default
+$link: $blue
+$link-invert: $blue-invert
+$link-visited: $purple
 
-$link-hover: $grey-darker !default
-$link-hover-border: $grey-light !default
+$link-hover: $green
+$link-hover-border: $green
 
-$link-focus: $grey-darker !default
-$link-focus-border: $blue !default
+$link-focus: $green
+$link-focus-border: $green
 
 $link-active: $grey-darker !default
 $link-active-border: $grey-dark !default
 
 // Typography
-$family-primary: $family-sans-serif !default
-$family-code: $family-monospace !default
+$family-primary: $family-sans-serif
+$family-secondary: $family-sans-serif
+$family-code: $family-monospace
+$body-family: $family-sans-serif
 
 $size-small: $size-7 !default
 $size-normal: $size-6 !default
 $size-medium: $size-5 !default
 $size-large: $size-4 !default
+
+// Navbar
+$navbar-item-color: $link
+$navbar-item-hover-color: $white
+$navbar-dropdown-background-color: $black
+$navbar-background-color: lighten( $black, 10% )
+$navbar-item-hover-background-color: lighten( $black, 5% )
+$navbar-item-active-background-color: lighten( $black, 5% )
+$navbar-tab-hover-background-color: lighten( $black, 5% )
