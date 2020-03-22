@@ -1,8 +1,12 @@
 <template lang="pug">
 .game
+  .tags.has-addons
+    span.tag.is-medium.is-primary Ducats
+    span.tag.is-medium.is-dark {{ ducats }}
   .resources
     template(v-for="resource in resources")
-      resource(:name="resource.name" :amount.sync="resource.amount" :assigned.sync="resource.assigned" :assignable="resource.assignable")
+      resource(:name="resource.name" :amount.sync="resource.amount"
+      :workers.sync="resource.workers" :assignable="resource.assignable" :ducats.sync="ducats")
 </template>
 
 <script>
@@ -15,16 +19,17 @@ export default {
   },
   data () {
     return {
+      ducats: 0,
       resources: {
         stone: {
           name: "Stone",
           amount: 0,
-          assigned: 0,
+          workers: 0,
         },
         clay: {
           name: "Clay",
           amount: 0,
-          assigned: 0,
+          workers: 0,
         },
         /////////////
         // Special //
