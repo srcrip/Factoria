@@ -4,6 +4,8 @@
     .tags.has-addons
       span.tag.is-medium.is-dark {{ name }}
       span.tag.is-medium.is-light {{ amount }}
+    span.tag Selling price: ${{ sellingPrice }}
+    span.tag Buying price: ${{ buyingPrice }}
   .field.has-addons.has-addons-centered
     .control
       progress-button.button.is-small(:duration="delay" @click="tryBuy(1)") Scavenge
@@ -17,7 +19,7 @@
     .field.has-addons-centered.has-addons
       .control
         progress-button.button.is-small(v-if="assignable" :duration="delay" @click="tryAssign(1)") Assign worker
-    span.tag.is-light Workers: {{ workers }}
+    span.tag.is-light Workers: {{ assigned }}
   hr
   .field
     div(@click="trySellErrorCheck(1)")
@@ -35,7 +37,9 @@ export default {
     buy: { time: DEFAULT_DELAY },
     sell: { time: DEFAULT_DELAY },
     assign: { time: DEFAULT_DELAY },
-    upgradeBuying: { time: DEFAULT_DELAY }
+    upgradeBuying: { time: DEFAULT_DELAY },
+    setPrice: { time: 5000, autostart: true, repeat: true },
+    workerTick: { time: 5000, autostart: true, repeat: true },
   },
   props: {
     name: {
@@ -50,7 +54,7 @@ export default {
       type: Number,
       default: 0
     },
-    workers: {
+    assigned: {
       type: Number,
       default: 0
     },
@@ -66,7 +70,8 @@ export default {
   data () {
     return {
       qty: 1,
-      value: 1,
+      buyingPrice: 0,
+      sellingPrice: 0,
       buyingUpgradeInitialCost: 1,
       buyingUpgradeCostFactor: 1.2,
       buyingLevel: 1,
@@ -79,9 +84,24 @@ export default {
     },
   },
   mounted () {
+    // TODO: Add this to others
     this.timers.buy.time = this.delay
+    this.setPrice()
   },
   methods: {
+    workerTick() {
+      this.$emit('update:amount', this.amount + this.assigned)
+    },
+    getRandPrice(factor) {
+      return Math.floor(Math.random() * 100 / factor + 1)
+    },
+    setPrice() {
+      this.buyingPrice = this.getRandPrice(3) + 6
+      this.sellingPrice = this.getRandPrice(6) 
+      if (this.sellingPrice > this.buyingPrice)
+        this.buyingPrice += (this.sellingPrice * 1.2)
+        this.buyingPrice = Math.floor(this.buyingPrice)
+    },
     errorToast(msg) {
       this.$buefy.toast.open({
           duration: 5000,
@@ -130,11 +150,11 @@ export default {
       this.buyingLevel += this.qty
     },
     assign() {
-      this.$emit('update:workers', this.workers + this.qty)
+      this.$emit('update:assigned', this.assigned + this.qty)
     },
     sell() {
       this.$emit('update:amount', this.amount - this.qty)
-      this.$emit('update:ducats', this.qty * this.value)
+      this.$emit('update:ducats', this.ducats + this.qty * this.price)
     },
   },
   components: {

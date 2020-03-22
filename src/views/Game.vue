@@ -2,11 +2,12 @@
 .game
   .tags.has-addons
     span.tag.is-medium.is-primary Ducats
-    span.tag.is-medium.is-dark {{ ducats }}
+    span.tag.is-medium.is-dark ${{ ducats }}
+  hr
   .resources
     template(v-for="resource in resources")
       resource(:name="resource.name" :amount.sync="resource.amount"
-      :workers.sync="resource.workers" :assignable="resource.assignable" :ducats.sync="ducats")
+      :assigned.sync="resource.assigned" :assignable="resource.assignable" :ducats.sync="ducats")
 </template>
 
 <script>
@@ -24,12 +25,12 @@ export default {
         stone: {
           name: "Stone",
           amount: 0,
-          workers: 0,
+          assigned: 0,
         },
         clay: {
           name: "Clay",
           amount: 0,
-          workers: 0,
+          assigned: 0,
         },
         /////////////
         // Special //
