@@ -1,4 +1,5 @@
 <template lang="pug">
+// TODO Rename scavenge to craft?
 .resource
   .field
     .tags.has-addons
@@ -28,17 +29,20 @@
 
 <script>
 import Button from 'vue-progress-button'
+import Pricing from '@/mixins/pricing'
 
 const DEFAULT_DELAY = 1000
 
 export default {
   name: 'Resource',
+  mixins: {
+    Pricing
+  },
   timers: {
     buy: { time: DEFAULT_DELAY },
     sell: { time: DEFAULT_DELAY },
     assign: { time: DEFAULT_DELAY },
     upgradeBuying: { time: DEFAULT_DELAY },
-    setPrice: { time: 5000, autostart: true, repeat: true },
     workerTick: { time: 5000, autostart: true, repeat: true },
   },
   props: {
@@ -70,8 +74,6 @@ export default {
   data () {
     return {
       qty: 1,
-      buyingPrice: 0,
-      sellingPrice: 0,
       buyingUpgradeInitialCost: 1,
       buyingUpgradeCostFactor: 1.2,
       buyingLevel: 1,
@@ -86,21 +88,10 @@ export default {
   mounted () {
     // TODO: Add this to others
     this.timers.buy.time = this.delay
-    this.setPrice()
   },
   methods: {
     workerTick() {
       this.$emit('update:amount', this.amount + this.assigned)
-    },
-    getRandPrice(factor) {
-      return Math.floor(Math.random() * 100 / factor + 1)
-    },
-    setPrice() {
-      this.buyingPrice = this.getRandPrice(3) + 6
-      this.sellingPrice = this.getRandPrice(6) 
-      if (this.sellingPrice > this.buyingPrice)
-        this.buyingPrice += (this.sellingPrice * 1.2)
-        this.buyingPrice = Math.floor(this.buyingPrice)
     },
     errorToast(msg) {
       this.$buefy.toast.open({
@@ -112,13 +103,6 @@ export default {
     },
     hoverToggle(thing, val) {
       this[thing] = val
-    },
-    canSell(qty) {
-      return this.amount >= qty
-    },
-    errorSell() {
-      let msg = `Not enough ${this.name} to sell.`
-      this.errorToast(msg)
     },
     tryBuy(qty) {
       this.qty = qty
@@ -132,17 +116,6 @@ export default {
       this.qty = qty
       this.$timer.restart('assign')
     },
-    trySell(qty) {
-      if (this.canSell(qty)) {
-        this.qty = qty
-        this.$timer.restart('sell')
-      } else {
-        this.errorSell()
-      }
-    },
-    trySellErrorCheck(qty) {
-      if (!this.canSell(qty)) this.errorSell()
-    },
     buy() {
       this.$emit('update:amount', this.amount + this.qty)
     },
@@ -151,10 +124,6 @@ export default {
     },
     assign() {
       this.$emit('update:assigned', this.assigned + this.qty)
-    },
-    sell() {
-      this.$emit('update:amount', this.amount - this.qty)
-      this.$emit('update:ducats', this.ducats + this.qty * this.price)
     },
   },
   components: {
