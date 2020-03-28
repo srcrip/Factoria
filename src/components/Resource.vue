@@ -35,12 +35,11 @@ const DEFAULT_DELAY = 1000
 
 export default {
   name: 'Resource',
-  mixins: {
+  mixins: [
     Pricing
-  },
+  ],
   timers: {
     buy: { time: DEFAULT_DELAY },
-    sell: { time: DEFAULT_DELAY },
     assign: { time: DEFAULT_DELAY },
     upgradeBuying: { time: DEFAULT_DELAY },
     workerTick: { time: 5000, autostart: true, repeat: true },

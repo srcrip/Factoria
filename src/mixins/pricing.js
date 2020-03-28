@@ -1,3 +1,6 @@
+// TODO: Refactor to a const file?
+const DEFAULT_DELAY = 1000
+
 // This is a mixin for resources that adds price, buying, selling, etc
 export default {
   data() {
@@ -7,6 +10,7 @@ export default {
     }
   },
   timers: {
+    sell: { time: DEFAULT_DELAY },
     setPrice: { time: 5000, autostart: true, repeat: true },
   },
   mounted () {
