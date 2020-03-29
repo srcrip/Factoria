@@ -10,4 +10,4 @@ Please run:
 yarn serve
 ```
 
-And then visit http://localhost:8080/.
+And then visit [localhost:8080](http://localhost:8080).
