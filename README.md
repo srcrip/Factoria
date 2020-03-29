@@ -4,7 +4,13 @@
 
 # Local Development
 
-Please run:
+Install dependencies:
+
+``` sh
+yarn install
+```
+
+And then start the server:
 
 ``` sh
 yarn serve
